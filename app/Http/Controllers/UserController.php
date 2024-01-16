@@ -38,6 +38,32 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:100',
+            'email'=> 'required|string|email|max:255|unique:users',
+            'password'=>'required|string|min:8',
+            'address'=> 'required|string|max:100',
+            'phone_number'=> 'required|string|min:10',
+            'role' => 'required|string|max:100'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'role' => $request->role,
+        ]);
+
+        
+
+        return response()->json(['Korisnik je sacuvan', new UserResource($user)]);
+    
     }
 
     /**
@@ -49,7 +75,11 @@ class UserController extends Controller
     public function show($user_id)
     {
         //
-      
+        $user = User::find($user_id);
+        if (is_null($user)) {
+            return response()->json('Korisnik nije pronadjen', 404);
+        }
+        return $user;
     }
 
     /**
@@ -70,9 +100,34 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user_id)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:100',
+            'email'=> 'required|string|email|max:255|unique:users',
+            'password'=>'required|string|min:8',
+            'address'=> 'required|string|max:100',
+            'phone_number'=> 'required|string|min:10',
+            'role' => 'required|string|max:100'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(["Validacija nije uspesna",$validator->errors()]);
+        }
+
+        $user = User::find($user_id);
+     
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->address = $request->address;
+        $user->phone_number = $request->phone_number;
+        $user->role = $request->role;
+
+        $user->save();
+     
+        return response()->json(['Korisnik je azuriran', new UserResource($user)]);
     }
 
     /**
@@ -81,8 +136,12 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($user_id)
     {
         //
+        $user = User::find($user_id);
+        $user->delete();
+ 
+        return response()->json(['Korisnik je uspesno obrisan.', 204]);
     }
 }
