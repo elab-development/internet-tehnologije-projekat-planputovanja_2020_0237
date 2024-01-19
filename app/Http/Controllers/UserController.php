@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
+
 
 class UserController extends Controller
 {
@@ -16,7 +18,7 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return $users;
+        return UserResource::collection($users);
     }
 
     /**
@@ -44,20 +46,25 @@ class UserController extends Controller
             'password'=>'required|string|min:8',
             'address'=> 'required|string|max:100',
             'phone_number'=> 'required|string|min:10',
-            'role' => 'required|string|max:100'
+            'role_name' => 'required|string' // Add validation for role_name
         ]);
 
         if($validator->fails()){
             return response()->json($validator->errors());
         }
+         // Find the role by name
+         $role = Role::where('role_name', $request->role_name)->first();
 
+         if (!$role) {
+            return response()->json(['error' => 'Uloga ne postoji.'], 404);
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
             'address' => $request->address,
             'phone_number' => $request->phone_number,
-            'role' => $request->role,
+            'role_id' => $role->id // Use the retrieved role_id
         ]);
 
         
@@ -79,7 +86,7 @@ class UserController extends Controller
         if (is_null($user)) {
             return response()->json('Korisnik nije pronadjen', 404);
         }
-        return $user;
+        return new UserResource($user);
     }
 
     /**
@@ -109,7 +116,7 @@ class UserController extends Controller
             'password'=>'required|string|min:8',
             'address'=> 'required|string|max:100',
             'phone_number'=> 'required|string|min:10',
-            'role' => 'required|string|max:100'
+            'role_name' => 'required|string' // Add validation for role_name
         ]);
 
         if($validator->fails()){
@@ -140,6 +147,9 @@ class UserController extends Controller
     {
         //
         $user = User::find($user_id);
+        if (!$user) {
+            return response()->json('Korisnik nije pronadjen.', 404);
+        }
         $user->delete();
  
         return response()->json(['Korisnik je uspesno obrisan.', 204]);
