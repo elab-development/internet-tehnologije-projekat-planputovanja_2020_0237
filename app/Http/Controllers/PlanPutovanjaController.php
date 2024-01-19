@@ -33,8 +33,7 @@ class PlanPutovanjaController extends Controller
             'destination_id' => 'required|exists:destinacijas,id',
             'duration' => 'required|numeric',
             'budget' => 'required|numeric',
-            'date' => 'required|date',
-            'description' => 'required|string',
+            'date' => 'required|date'
         ]);
 
         if ($validator->fails()) {
@@ -46,8 +45,7 @@ class PlanPutovanjaController extends Controller
             'destination_id' => $request->destination_id,
             'duration' => $request->duration,
             'budget' => $request->budget,
-            'date' => $request->date,
-            'description' => $request->description,
+            'date' => $request->date
         ]);
 
         return response()->json(['PlanPutovanja je uspesno sacuvan.', new PlanPutovanjaResource($planPutovanja)]);
@@ -83,8 +81,7 @@ class PlanPutovanjaController extends Controller
             'destination_id' => 'required|exists:destinacijas,id',
             'duration' => 'required|numeric',
             'budget' => 'required|numeric',
-            'date' => 'required|date',
-            'description' => 'required|string',
+            'date' => 'required|date'
         ]);
 
         if ($validator->fails()) {
@@ -102,7 +99,6 @@ class PlanPutovanjaController extends Controller
         $planPutovanja->duration = $request->duration;
         $planPutovanja->budget = $request->budget;
         $planPutovanja->date = $request->date;
-        $planPutovanja->description = $request->description;
 
         $planPutovanja->save();
 

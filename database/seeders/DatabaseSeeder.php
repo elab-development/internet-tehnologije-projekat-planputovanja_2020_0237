@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Znamenitost;
+use App\Models\Hotel;
 
 use Illuminate\Database\Seeder;
 
@@ -17,11 +19,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-           
-            //DestinacijaSeeder::class,
-            RoleSeeder::class
-        ]);
+            RoleSeeder::class,
+           ]);
+
         User::factory(10)->create();
+        $this->call([
+            DestinacijaSeeder::class,
+            ZnamenitostSeeder::class,
+            HotelSeeder::class,
+            PlanPutovanjaSeeder::class
+        ]);
+        
+        
+       
         
     }
 }

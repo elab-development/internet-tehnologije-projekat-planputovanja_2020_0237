@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PlanPutovanja extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'destination_id', 'duration', 'budget', 'date', 'description'];
+    protected $fillable = ['user_id', 'destination_id', 'duration', 'budget', 'date'];
 
      // Relacija sa znamenitostima
     public function znamenitosti()

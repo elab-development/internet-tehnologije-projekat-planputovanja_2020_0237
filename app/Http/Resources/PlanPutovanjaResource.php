@@ -22,8 +22,7 @@ class PlanPutovanjaResource extends JsonResource
             'destination_id' => $this->resource->destination_id,
             'duration' => $this->resource->duration,
             'budget' => $this->resource->budget,
-            'date' => $this->resource->date,
-            'description' => $this->resource->description
+            'date' => $this->resource->date
         ];
     }
 }
