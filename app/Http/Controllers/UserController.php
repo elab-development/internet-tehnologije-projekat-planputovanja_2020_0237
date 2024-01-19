@@ -61,7 +61,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'address' => $request->address,
             'phone_number' => $request->phone_number,
             'role_id' => $role->id // Use the retrieved role_id
@@ -127,7 +127,7 @@ class UserController extends Controller
      
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->address = $request->address;
         $user->phone_number = $request->phone_number;
         $user->role = $request->role;

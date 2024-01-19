@@ -59,7 +59,7 @@ class AuthController extends Controller
         
         $user= User::where('email', $request['email'])->firstOrFail();
 
-        if($user->role !== 'admin' && $user->role !== 'ulogovan'){
+        if($user->role_id !== 1 && $user->role_id !== 2){
             $user->update(['role_id'=>'2']);
         }
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
         $id=Auth::id();
         $user = Auth::user();
 
-        if ($user->role !== 'admin' && $user->role !== 'neulogovan') {
+        if ($user->role_id !== 1 && $user->role_id !== 3) {
             $user->update(['role_id' => '3']);
         }
        $request->user()->tokens()->delete();
