@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\PlanPutovanja;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\PlanPutovanjaResource;
@@ -16,7 +18,11 @@ class PlanPutovanjaController extends Controller
      */
     public function index()
     {
-        $planputovanjas = PlanPutovanja::all();
+        $user = Auth::user();
+
+        // Dohvati planove putovanja povezane s trenutnim korisnikom
+        $planputovanjas = PlanPutovanja::where('user_id', $user->id)->get();
+
         return PlanPutovanjaResource::collection($planputovanjas);
     }
 
@@ -29,7 +35,7 @@ class PlanPutovanjaController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+           // 'user_id' => 'required|exists:users,id',
             'destination_id' => 'required|exists:destinacijas,id',
             'duration' => 'required|numeric',
             'budget' => 'required|numeric',
@@ -38,10 +44,12 @@ class PlanPutovanjaController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
-        }
+        }    
+    
+        $user = Auth::user(); // Dohvati trenutno ulogovanog korisnika
 
         $planPutovanja = PlanPutovanja::create([
-            'user_id' => $request->user_id,
+            'user_id' => $user->id,
             'destination_id' => $request->destination_id,
             'duration' => $request->duration,
             'budget' => $request->budget,
@@ -77,7 +85,7 @@ class PlanPutovanjaController extends Controller
     public function update(Request $request, $planPutovanja_id)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+            //'user_id' => 'required|exists:users,id',
             'destination_id' => 'required|exists:destinacijas,id',
             'duration' => 'required|numeric',
             'budget' => 'required|numeric',
@@ -93,8 +101,11 @@ class PlanPutovanjaController extends Controller
         if (!$planPutovanja) {
             return response()->json('Plan putovanja nije pronadjen.', 404);
         }
-
-        $planPutovanja->user_id = $request->user_id;
+        // Provera vlasništva
+        if ($planPutovanja->user_id !== Auth::id()) {
+            return response()->json('Nemate dozvolu za ažuriranje ovog plana putovanja.', 403);
+        }
+        //$planPutovanja->user_id = $request->user_id;
         $planPutovanja->destination_id = $request->destination_id;
         $planPutovanja->duration = $request->duration;
         $planPutovanja->budget = $request->budget;
@@ -117,7 +128,14 @@ class PlanPutovanjaController extends Controller
         if (!$planPutovanja) {
             return response()->json('Plan putovanja nije pronadjen.', 404);
         }
+        // Provjera vlasništva
+    
+        if ($planPutovanja->user_id !== Auth::id()) {
+            return response()->json('Nemate dozvolu za brisanje ovog plana putovanja.', 403);
+        }
+
         $planPutovanja->delete();
         return response()->json(['Plan putovanja je uspesno obrisan.', 204]);
     }
+
 }
