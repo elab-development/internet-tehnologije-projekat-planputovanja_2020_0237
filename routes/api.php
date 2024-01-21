@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    //Prikaz korisniku svih destinacija
    Route::get('/destinacija', [DestinacijaController::class, 'index'])->middleware('accessControl:2');
 
+   //Eksport podataka u pdf-u
+   Route::get('/export-pdf', [PDFExportController::class, 'exportPDF'])->middleware('accessControl:1');
 
    //Ulogovan korisnik moze da vidi, kreira, izmenjuje i brise svoja putovanja
    Route::get('/planPutovanja', [PlanPutovanjaController::class, 'index'])->middleware('accessControl:2');

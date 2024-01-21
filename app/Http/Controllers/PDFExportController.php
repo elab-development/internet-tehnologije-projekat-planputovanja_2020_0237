@@ -10,9 +10,9 @@ class PDFExportController extends Controller
 {
     public function exportPDF()
     {
-        $plans = PlanPutovanja::all();
+        $plan_putovanjas = PlanPutovanja::all();
 
-        $pdf = PDF::loadView('pdf.export', ['plans' => $plans]);
+        $pdf = PDF::loadView('pdf.export', ['plan_putovanjas' => $plan_putovanjas]);
 
         return $pdf->download('planovi_putovanja.pdf');
     }
