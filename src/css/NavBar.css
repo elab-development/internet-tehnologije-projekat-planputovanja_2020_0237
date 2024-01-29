@@ -1,0 +1,47 @@
+/* NavBar.css */
+
+nav {
+    background-color: #333; /* Boja pozadine */
+    color: white; /* Boja teksta */
+    padding: 10px 20px; /* Prostor za punjenje unutar nav elementa */
+  }
+  
+  ul {
+    list-style-type: none; /* Uklanja stilizovane tačkice ispred stavki liste */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Koristi fleksibilni prikaz */
+    align-items: center; /* Poravnaj stavke vertikalno */
+  }
+  
+  li {
+    margin-right: 20px; /* Razmak između stavki */
+  }
+  
+  a {
+    color: white; /* Boja linkova */
+    text-decoration: none; /* Uklanja podvučenost linkova */
+  }
+  
+  a:hover {
+    text-decoration: underline; /* Podvuči linkove kada korisnik pređe mišem preko njih */
+  }
+  
+  button {
+    background-color: transparent; /* Transparentna pozadina za dugmad */
+    border: none; /* Uklanja ivice */
+    color: white; /* Boja teksta */
+    cursor: pointer; /* Promeni kursor na pokazivač kada se pređe preko dugmeta */
+    font-size: 16px; /* Veličina fonta */
+  }
+  
+  button:hover {
+    text-decoration: underline; /* Podvuči dugmad kada korisnik pređe mišem preko njih */
+  }
+  
+  .user-icon {
+    width: 20px; /* Prilagodite veličinu ikonice prema potrebi */
+    height: 20px; /* Prilagodite veličinu ikonice prema potrebi */
+    margin-right: 5px; /* Podešavanje razmaka između ikonice i teksta */
+  }
+  
