@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../css/HomePage.css';
-import NavBar from './NavBar'; // Dodajemo import NavBar komponente
+//import NavBar from './NavBar'; // Dodajemo import NavBar komponente
 
 function HomePage() {
   const [destination, setDestination] = useState('');
@@ -42,7 +42,6 @@ function HomePage() {
   return (
     <div className="home-page">
       {/* Dodajemo prikaz Navbar-a samo ako je korisnik prijavljen */}
-      <NavBar />
       <h2>Planiranje Putovanja</h2>
       <form onSubmit={handleSubmit}>
         <div>

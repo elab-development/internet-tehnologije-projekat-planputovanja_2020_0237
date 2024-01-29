@@ -1,10 +1,8 @@
-// Register.js
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import '../css/Register.css';
 
-function Register() {
+function Register({ onRegister }) { // Dodajemo onRegister kao prop
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,6 +17,8 @@ function Register() {
         console.log('Password:', password);
         console.log('Confirm Password:', confirmPassword);
         // Ovde možete implementirati logiku za slanje podataka na backend
+        // Nakon uspešne registracije, pozovemo funkciju onRegister
+        onRegister(); // Dodajemo poziv funkcije onRegister
     };
 
     return (

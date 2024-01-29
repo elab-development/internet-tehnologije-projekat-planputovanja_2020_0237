@@ -1,10 +1,15 @@
+/* login.css */
+
 .register-container {
-  max-width: 400px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp'); /* Zamijenite 'putanja/do/vasa-slika.jpg' sa stvarnom putanjom do vaše slike */
+  background-size: cover;
+  background-position: center;
 }
 
 .register-container h2 {
@@ -16,13 +21,13 @@
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Dodali smo ovu liniju kako bismo centrirali labele */
+  align-items: center;
 }
 
 .register-form label {
   font-size: 16px;
   margin-bottom: 5px;
-  text-align: center; /* Dodali smo ovu liniju kako bismo centrirali tekst u labelama */
+  text-align: center;
 }
 
 .register-form input {

@@ -1,0 +1,20 @@
+
+.about-container {
+    background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp'); /* Zamijenite 'putanja/do/vasa-slika.jpg' sa stvarnom putanjom do vaše slike */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Osigurava da se pozadina proteže kroz cijelu visinu ekrana */
+    display: flex;
+    flex-direction: column; /* Postavlja smjer fleksibilnog kontejnera na vertikalno */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-content {
+    text-align: center;
+    color: #fff; /* Boja teksta */
+    padding: 20px;
+  }
+  
+  /* Dodatni stilovi po potrebi */
+  

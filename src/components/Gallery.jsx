@@ -7,7 +7,6 @@ import '../css/Gallery.css';
 function Gallery({ onLogout, email }) {
   return (
     <div>
-         <NavBar onLogout={onLogout} email={email} /> {/* Dodajemo NavBar */}
       <h2>Gallery</h2>
       <div className="image-container">
         <figure>
