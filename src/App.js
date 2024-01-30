@@ -8,6 +8,7 @@ import HomePage from './components/HomePage';
 import Gallery from './components/Gallery';
 import About from './components/About';
 import PlanPutovanja from './components/PlanPutovanja';
+import MojaPutovanja from './components/MojaPutovanja';
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
           <Route path="/planputovanja" element={<PlanPutovanja />} />
+          <Route path="/mojaputovanja" element={<MojaPutovanja />} />
         </Routes>
       </div>
     </Router>
