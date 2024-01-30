@@ -1,40 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/Login.css';
+import axios from "axios"
 
-const users = [
-  { id: 1, email: 'dusan@gmail.com', password: 'dusan_123' },
-  { id: 2, email: 'kristina@gmail.com', password: 'kristina_123' },
-  { id: 3, email: 'user3@example.com', password: 'password3' },
-];
 
-function loginUser(email, password) {
-  const user = users.find(user => user.email === email);
-  if (user && user.password === password) {
-    return user;
-  } else {
-    return null;
+function Login({addToken}) { 
+  const[userData,setUserData]=useState({
+    email:"",
+    password:"",
+  });
+
+  let navigate=useNavigate();
+
+  function handleInput(e) {
+    let newUserData=userData;
+    newUserData[e.target.name]=e.target.value;
+    setUserData(newUserData);
   }
-}
 
-function Login({ onLogin }) { // Dodajte onLogin prop
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-
-  const handleSubmit = (e) => {
+  function handleSubmit(e){
     e.preventDefault();
-    const user = loginUser(email, password);
-    if (user) {
-      console.log('Uspješna prijava:', user.email);
-      onLogin(user.email); // Pozovite onLogin callback sa emailom korisnika
-    } else {
-      console.log('Neuspješna prijava. Provjerite e-mail i lozinku.');
-      return; // Zaustavi dalje izvršavanje ako prijava nije uspela
-    }
-  };
+    axios.post("http://127.0.0.1:8000/api/login",userData).then((res)=>{
+      console.log(res.data);
+      if(res.data.success===true){
+        window.sessionStorage.setItem("auth_token",res.data.access_token);
+        addToken(res.data.access_token);
+        navigate("/homepage");
+      }
+    }).catch((e)=>{
+      console.log(e);
+    });
+  }
 
   return (
     <div className="login-container">
@@ -42,11 +38,11 @@ function Login({ onLogin }) { // Dodajte onLogin prop
       <form className="login-form" onSubmit={handleSubmit}>
         <div>
           <label>Email:</label>
-          <input type="email" value={email} onChange={handleEmailChange} />
+          <input type="email" name="email" onInput={handleInput} />
         </div>
         <div>
           <label>Password:</label>
-          <input type="password" value={password} onChange={handlePasswordChange} />
+          <input type="password" name="password" onInput={handleInput} />
         </div>
         <button type="submit">Login</button>
       </form>

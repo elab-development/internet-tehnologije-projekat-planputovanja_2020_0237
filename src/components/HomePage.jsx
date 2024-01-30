@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 import '../css/HomePage.css';
-//import NavBar from './NavBar'; // Dodajemo import NavBar komponente
 
 function HomePage() {
   const [destination, setDestination] = useState('');
   const [budget, setBudget] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [duration, setDuration] = useState('');
+  const [destinationsOptions, setDestinationsOptions] = useState([]);
+  const [sveDestinacije, setSveDestinacije] = useState(null);
 
   const handleDestinationChange = (e) => setDestination(e.target.value);
   const handleBudgetChange = (e) => {
@@ -26,32 +27,77 @@ function HomePage() {
     }
   };
 
+  useEffect(() => {
+    const authToken = window.sessionStorage.getItem("auth_token");
+
+    axios.get('http://127.0.0.1:8000/api/destinacija', {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        const allDestinations = response.data;
+
+        // Postavlja opcije za destinacije
+        setDestinationsOptions(allDestinations.data.map(option => option.name));
+        setSveDestinacije(allDestinations);
+      })
+      .catch(error => {
+        console.error('Greška pri dohvaćanju destinacija:', error);
+      });
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (duration < 0 || budget < 0) {
       alert('Trajanje putovanja i budžet ne mogu biti manji od nule.');
       return;
     }
-    console.log('Destination:', destination);
-    console.log('Budget:', budget);
-    console.log('Start Date:', startDate);
-    console.log('Duration:', duration);
-    // Ovde možete implementirati logiku za obradu podataka
-  };
 
+    const authToken = window.sessionStorage.getItem("auth_token");
+
+    axios.get('http://127.0.0.1:8000/api/hotel', {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        const hotels = response.data.data;
+
+        // Filtriramo hotele za izabranu destinaciju
+        const selectedHotels = hotels.filter(hotel => hotel.destination_id === sveDestinacije.data.find(option => option.name === destination).id);
+
+        // Pronalazimo hotele sa cenom noćenja u okviru budžeta
+        const affordableHotels = selectedHotels.filter(hotel => {
+          const totalCost = hotel.price * duration;
+          return totalCost <= budget;
+        });
+
+        if (affordableHotels.length > 0) {
+          const hotelNames = affordableHotels.map(hotel => hotel.name);
+          alert(`Hoteli sa odgovarajućom cenom: ${hotelNames.join(', ')}`);
+        } else {
+          alert('Nemate dovoljno veliki budžet za ovo putovanje.');
+        }
+      })
+      .catch(error => {
+        console.error('Greška pri dohvaćanju hotela:', error);
+      });
+  };
+  
   return (
     <div className="home-page">
-      {/* Dodajemo prikaz Navbar-a samo ako je korisnik prijavljen */}
       <h2>Planiranje Putovanja</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Destinacija:</label>
           <select value={destination} onChange={handleDestinationChange}>
             <option value="">Izaberite destinaciju...</option>
-            <option value="paris">Pariz</option>
-            <option value="rome">Rim</option>
-            <option value="london">London</option>
-            {/* Dodajte ostale destinacije prema potrebi */}
+            {destinationsOptions.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
           </select>
         </div>
         <div>
@@ -73,4 +119,3 @@ function HomePage() {
 }
 
 export default HomePage;
-

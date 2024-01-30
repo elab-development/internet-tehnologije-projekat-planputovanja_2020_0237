@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../css/Register.css';
+import axios from "axios"
 
-function Register({ onRegister }) { // Dodajemo onRegister kao prop
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+function Register() { // Dodajemo onRegister kao prop
+    const[userData,setUserData]=useState({
+        name:"",
+        email:"",
+        password:"",
+      });
+      let navigate=useNavigate();
 
-    const handleEmailChange = (e) => setEmail(e.target.value);
-    const handlePasswordChange = (e) => setPassword(e.target.value);
-    const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
-
-    const handleSubmit = (e) => {
+      function handleInput(e) {
+        let newUserData=userData;
+        newUserData[e.target.name]=e.target.value;
+        setUserData(newUserData);
+      }
+    
+      function handleSubmit(e){
         e.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Confirm Password:', confirmPassword);
-        // Ovde možete implementirati logiku za slanje podataka na backend
-        // Nakon uspešne registracije, pozovemo funkciju onRegister
-        onRegister(); // Dodajemo poziv funkcije onRegister
-    };
+        axios.post("http://127.0.0.1:8000/api/register",userData).then((res)=>{
+          console.log(res.data);
+          navigate("/login");
+        }).catch((e)=>{
+          console.log(e);
+        });
+      }
 
     return (
         <div className="register-container">
             <h2>Registracija</h2>
             <form className="register-form" onSubmit={handleSubmit}>
+            <div>
+                    <label>Ime:</label>
+                    <input type="name" name="name" onInput={handleInput} />
+                </div>
                 <div>
                     <label>Email:</label>
-                    <input type="email" value={email} onChange={handleEmailChange} />
+                    <input type="email" name="email" onInput={handleInput} />
                 </div>
                 <div>
                     <label>Password:</label>
-                    <input type="password" value={password} onChange={handlePasswordChange} />
+                    <input type="password" name="password" onInput={handleInput} />
                 </div>
-                <div>
-                    <label>Potvrdi password:</label>
-                    <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} />
-                </div>
+               
                 <button type="submit">Registruj se</button>
             </form>
         </div>
