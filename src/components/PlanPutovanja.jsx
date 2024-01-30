@@ -6,6 +6,7 @@ import '../css/PlanPutovanja.css';
 
 function PlanPutovanja({ destination_id, destination, budget, startDate, duration, hotel }) {
   const [attractions, setAttractions] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -81,11 +82,12 @@ function PlanPutovanja({ destination_id, destination, budget, startDate, duratio
       .then(response => {
         console.log('Odgovor servera:', response.data);
         console.log('Plan putovanja je uspešno sačuvan.', response.data);
-        // Dodajte dodatne logike ili povratne informacije korisniku po potrebi
+        setIsSaved(true); // Postavlja status sačuvanosti na true kada je plan putovanja sačuvan
+       
       })
       .catch(error => {
-        console.log('Greška pri čuvanju plana putovanja:', error); // Promenjeno u console.log
-        // Dodajte logiku za rukovanje greškama ili prikažite korisniku poruku o grešci
+        console.log('Greška pri čuvanju plana putovanja:', error); 
+       
       });
   }
   const handlePrint = () => {
@@ -123,8 +125,8 @@ function PlanPutovanja({ destination_id, destination, budget, startDate, duratio
         <Link to="/homepage" className="button button-cancel" onClick={handleCancel}>
           Poništi
         </Link>
-        <button onClick={handleSave} className="button button-save">
-          Sačuvaj
+        <button onClick={handleSave} className="button button-save" disabled={isSaved}>
+          {isSaved ? 'Sačuvano' : 'Sačuvaj'}
         </button>
         <button onClick={handlePrint} className="button button-print">
           Ištampaj
