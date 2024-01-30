@@ -1,0 +1,70 @@
+/* PlanPutovanja.css */
+
+.plan-putovanja {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    text-align: center;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.plan-putovanja h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.plan-putovanja p {
+    margin-bottom: 10px;
+}
+
+.plan-putovanja ul {
+    list-style: none;
+    padding: 0;
+}
+
+.plan-putovanja ul li {
+    margin-bottom: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-cancel {
+    background-color: #007bff;
+}
+
+.button-cancel:hover {
+    background-color: #0056b3;
+}
+
+.button-save {
+    background-color: #007bff;
+}
+
+.button-save:hover {
+    background-color: #0056b3;
+}
+
+.button-print {
+    background-color: #007bff;
+}
+
+.button-print:hover {
+    background-color: #0056b3;
+}

@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import Gallery from './components/Gallery';
 import About from './components/About';
+import PlanPutovanja from './components/PlanPutovanja';
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
+          <Route path="/planputovanja" element={<PlanPutovanja />} />
         </Routes>
       </div>
     </Router>

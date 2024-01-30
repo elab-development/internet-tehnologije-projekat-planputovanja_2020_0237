@@ -3,16 +3,25 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 import '../css/HomePage.css';
+import PlanPutovanja from './PlanPutovanja';
 
 function HomePage() {
+  
   const [destination, setDestination] = useState('');
+  const [selectedDestinationId, setSelectedDestinationId] = useState('');
   const [budget, setBudget] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [duration, setDuration] = useState('');
   const [destinationsOptions, setDestinationsOptions] = useState([]);
   const [sveDestinacije, setSveDestinacije] = useState(null);
+  const [selectedHotel, setSelectedHotel] = useState(null);
 
-  const handleDestinationChange = (e) => setDestination(e.target.value);
+
+  const handleDestinationChange = (e) => {
+    const selectedDestination = sveDestinacije.data.find(option => option.name === e.target.value);
+    setDestination(e.target.value);
+    setSelectedDestinationId(selectedDestination ? selectedDestination.id : '');
+  };
   const handleBudgetChange = (e) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value) && value >= 0) {
@@ -78,6 +87,8 @@ function HomePage() {
         if (affordableHotels.length > 0) {
           const hotelNames = affordableHotels.map(hotel => hotel.name);
           alert(`Hoteli sa odgovarajućom cenom: ${hotelNames.join(', ')}`);
+          setSelectedHotel(affordableHotels[0]);  // Odaberite prvi hotel (možete prilagoditi način odabira hotela)
+          
         } else {
           alert('Nemate dovoljno veliki budžet za ovo putovanje.');
         }
@@ -86,23 +97,36 @@ function HomePage() {
         console.error('Greška pri dohvaćanju hotela:', error);
       });
   };
-  
+   // Prikazivanje komponente PlanPutovanja ako je hotel odabran
+   if (selectedHotel) {
+    return (
+      <PlanPutovanja
+
+      destination_id={selectedDestinationId}
+        destination={destination}
+        budget={budget}
+        startDate={startDate}
+        duration={duration}
+        hotel={selectedHotel}
+      />
+    );
+  }
   return (
     <div className="home-page">
       <h2>Planiranje Putovanja</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Destinacija:</label>
-          <select value={destination} onChange={handleDestinationChange}>
-            <option value="">Izaberite destinaciju...</option>
-            {destinationsOptions.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
-            ))}
+          <select value={destination} onChange={handleDestinationChange} required>
+           <option value="">Izaberite destinaciju...</option>
+           {destinationsOptions.map((option, index) => ( 
+             <option key={index} value={option}>{option}</option>
+           ))}
           </select>
         </div>
         <div>
           <label>Budžet:</label>
-          <input type="number" value={budget} onChange={handleBudgetChange} />
+          <input type="number" value={budget} onChange={handleBudgetChange} required />
         </div>
         <div>
           <label>Datum polaska:</label>
@@ -110,7 +134,7 @@ function HomePage() {
         </div>
         <div>
           <label>Trajanje putovanja (u danima):</label>
-          <input type="number" value={duration} onChange={handleDurationChange} />
+          <input type="number" value={duration} onChange={handleDurationChange}required />
         </div>
         <button type="submit">Planiraj Putovanje</button>
       </form>
