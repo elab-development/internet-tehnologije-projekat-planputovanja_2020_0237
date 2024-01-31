@@ -9,7 +9,7 @@ function Login({addToken}) {
     email:"",
     password:"",
   });
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Dodajemo korisničku kuku
   let navigate=useNavigate();
 
   function handleInput(e) {
@@ -25,6 +25,7 @@ function Login({addToken}) {
       if(res.data.success===true){
         window.sessionStorage.setItem("auth_token",res.data.access_token);
         addToken(res.data.access_token);
+        setIsLoggedIn(true); // Postavljamo isLoggedIn na true kada se korisnik uspešno prijavi
         navigate("/homepage");
       }
     }).catch((e)=>{

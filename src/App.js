@@ -23,7 +23,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <NavBar token={token} />
+      <NavBar token={token} setToken={setToken} />
         <Routes>
           <Route path="/login" element={<Login addToken={addToken} />} />
           <Route path="/register" element={<Register />} />

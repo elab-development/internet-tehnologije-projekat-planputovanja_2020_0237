@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import html2pdf from 'html2pdf.js';
 import '../css/PlanPutovanja.css';
 
 function PlanPutovanja({ destination_id, destination, budget, startDate, duration, hotel }) {
@@ -90,8 +91,14 @@ function PlanPutovanja({ destination_id, destination, budget, startDate, duratio
        
       });
   }
+
+  const generatePDF = () => {
+    const element = document.querySelector('.plan-putovanja');
+    html2pdf(element);
+  };
+
   const handlePrint = () => {
-    console.log('Ištampaj');
+    generatePDF();
   };
 
   return (
