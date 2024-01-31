@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PlanPutovanja;
 use App\Models\User;
+use App\Models\Destinacija;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,25 @@ class PlanPutovanjaController extends Controller
         return PlanPutovanjaResource::collection($planputovanjas);
     }
 
-    /**
+    public function getByDestination($destination)
+    {
+    $user = Auth::user();
+
+    // Pronađi destination_id na osnovu naziva destinacije
+    $destinationId = Destinacija::where('name', $destination)->value('id');
+
+    if (!$destinationId) {
+        return response()->json('Destinacija nije pronađena.', 404);
+    }
+
+    // Dohvati planove putovanja povezane s trenutnim korisnikom i određenom destinacijom
+    $planputovanjas = PlanPutovanja::where('user_id', $user->id)
+        ->where('destination_id', $destinationId)
+        ->get();
+
+    return PlanPutovanjaResource::collection($planputovanjas);
+}
+/**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

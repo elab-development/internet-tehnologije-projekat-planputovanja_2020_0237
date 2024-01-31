@@ -16,13 +16,15 @@ class PlanPutovanjaResource extends JsonResource
     
     public function toArray($request)
     {
+       
         return [
             'id' => $this->resource->id,
             'user_id' => $this->resource->user_id,
             'destination_id' => $this->resource->destination_id,
+            'destination_name' => $this->resource->destinacija->name, // Pristup 'name' kroz relaciju
             'duration' => $this->resource->duration,
             'budget' => $this->resource->budget,
-            'date' => $this->resource->date
+            'date' => $this->resource->date,
         ];
     }
 }

@@ -31,6 +31,6 @@ class PlanPutovanja extends Model
     // Relacija sa destinacijom (jedan plan putovanja pripada jednoj destinaciji)
     public function destinacija()
     {
-        return $this->belongsTo(Destinacija::class);
+        return $this->belongsTo(Destinacija::class,'destination_id');
     }
 }

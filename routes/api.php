@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    Route::post('/storePlanPutovanja', [PlanPutovanjaController::class, 'store'])->middleware('accessControl:2');
    Route::put('/updatePlanPutovanja/{id}', [PlanPutovanjaController::class, 'update'])->middleware('accessControl:2');
    Route::delete('/deletePlanPutovanja/{id}', [PlanPutovanjaController::class, 'destroy'])->middleware('accessControl:2');
+   Route::get('/planPutovanja/{name}', [PlanPutovanjaController::class, 'getByDestination'])->middleware('accessControl:2');
+  // Route::get('/planPutovanja/page/{page}/perPage/{perPage}', [PlanPutovanjaController::class, 'getPlansByPage'])->middleware('accessControl:2');
 
    Route::post('/logout', [AuthController::class, 'logout']);
 
