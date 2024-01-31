@@ -1,45 +1,58 @@
-/* MojaPutovanja.css */
-
+/* .moja-putovanja-container styles */
 .moja-putovanja-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .moja-putovanja-item {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #fff;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .moja-putovanja-item h2 {
-    color: #333;
-  }
-  
-  .moja-putovanja-item p {
-    margin: 8px 0;
-    color: #666;
-  }
-  
-  .moja-putovanja-item p:first-child {
-    font-weight: bold;
-  }
-  
-  .moja-putovanja-item p:last-child {
-    margin-bottom: 0;
-  }
-  
-  .moja-putovanja-item p.not-available {
-    color: #999;
-  }
-  
-  .moja-putovanja-item:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 40px;
+  background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp');
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* .moja-putovanja-item styles */
+.moja-putovanja-item {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+
+.moja-putovanja-item:hover {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+/* .moja-putovanja-item h3 styles */
+.moja-putovanja-item h3 {
+  color: #007bff;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* .moja-putovanja-item p styles */
+.moja-putovanja-item p {
+  margin: 10px 0;
+  color: #666;
+}
+
+/* Pagination buttons styles */
+.pagination-button {
+   border: none;
+  color: rgb(7, 50, 64);
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px; /* Add margin to separate buttons */
+  padding: 10px 20px; /* Add padding for better appearance */
+}
+
+.pagination-button:hover {
+  text-decoration: underline;
+}
+
+/* Style for the disabled button */
+.pagination-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

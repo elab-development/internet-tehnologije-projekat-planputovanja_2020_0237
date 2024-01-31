@@ -1,20 +1,37 @@
-
 .about-container {
-    background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp'); /* Zamijenite 'putanja/do/vasa-slika.jpg' sa stvarnom putanjom do vaše slike */
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh; /* Osigurava da se pozadina proteže kroz cijelu visinu ekrana */
-    display: flex;
-    flex-direction: column; /* Postavlja smjer fleksibilnog kontejnera na vertikalno */
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .about-content {
-    text-align: center;
-    color: #fff; /* Boja teksta */
-    padding: 20px;
-  }
-  
-  /* Dodatni stilovi po potrebi */
-  
+  background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+ 
+.about-content {
+  text-align: center;
+  color: #1b1919;
+  font-size: 18px;
+  padding: 20px;
+}
+ 
+.about-content h2,
+.about-content h3 {
+  font-size: 32px; 
+  margin-bottom: 20px;
+  color: #007bff; 
+}
+ 
+.about-content p {
+  margin-bottom: 10px;
+}
+ 
+.contact-info {
+  text-align: center; 
+  list-style: none; 
+  padding: 0; 
+}
+ 
+.contact-info li {
+  margin-bottom: 10px; 
+}

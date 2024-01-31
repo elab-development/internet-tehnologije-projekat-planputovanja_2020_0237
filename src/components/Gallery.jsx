@@ -7,7 +7,7 @@ import '../css/Gallery.css';
 function Gallery({ onLogout, email }) {
   return (
     <div>
-      <h2>Gallery</h2>
+      <h2>Galerija</h2>
       <div className="image-container">
         <figure>
         <img src="https://www.travel4you.rs/images/smestaj/galerija/pariz-putovanje-avionom-jeftino-02.jpg" alt="Pariz" />

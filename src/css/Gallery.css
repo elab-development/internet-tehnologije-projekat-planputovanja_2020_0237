@@ -1,24 +1,40 @@
-/* styles/Gallery.css */
-
 .image-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  figure {
-    width: 25%; /* Postavljamo širinu figure na 25% kako bismo postavili 4 slike u jednom redu */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box; /* Postavljamo box-sizing na border-box kako bismo uključili padding u širinu */
-    text-align: center; /* Centriramo sliku i figcaption unutar figure */
-  }
-  
-  img {
-    max-width: 100%; /* Postavljamo maksimalnu širinu slike na 100% da bi se smanjila veličina */
-    height: auto; /* Postavljamo automatsku visinu kako bi se očuvali odnosi slike */
-  }
-  
-  figcaption {
-    margin-top: 10px; /* Dodajemo malo prostora između slike i figcaption-a */
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 30px 20px; 
+}
+ 
+figure {
+  width: calc(25% - 20px); 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  text-align: center; 
+  position: relative; 
+  overflow: hidden; 
+  border-radius: 10px; 
+  transition: transform 0.3s ease; 
+}
+ 
+figure:hover {
+  transform: scale(1.05); 
+}
+ 
+img {
+  max-width: 100%; 
+  height: auto; 
+  transition: transform 0.3s ease;
+}
+ 
+figcaption {
+  margin-top: 10px; 
+  font-style: italic; 
+  color: #666; 
+  transition: opacity 0.3s ease;
+  opacity: 0; 
+}
+ 
+figure:hover figcaption {
+  opacity: 1; 
+}

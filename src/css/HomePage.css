@@ -1,49 +1,47 @@
-/* login.css */
-
 .home-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  max-width: 1000px; 
+  margin: 50px auto; 
+  padding: 40px; 
+  border: 2px solid #ccc; 
+  border-radius: 12px; 
   background-color: #f9f9f9;
-  background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp'); /* Zamijenite 'putanja/do/vasa-slika.jpg' sa stvarnom putanjom do vaše slike */
+  background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp');
   background-size: cover;
   background-position: center;
 }
-
+ 
 .home-page h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: 30px; 
+  font-size: 32px; 
   color: #333;
 }
-
+ 
 .home-page form {
   display: grid;
-  gap: 15px;
+  gap: 20px; 
 }
-
+ 
 .home-page label {
   font-weight: bold;
   color: #555;
 }
-
+ 
 .home-page select,
 .home-page input,
 .home-page button {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 15px; 
+  font-size: 18px; 
+  border: 2px solid #ccc; 
+  border-radius: 8px; 
 }
-
+ 
 .home-page button {
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
 }
-
+ 
 .home-page button:hover {
   background-color: #0056b3;
 }

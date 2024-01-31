@@ -13,7 +13,7 @@ function MojaPutovanja() {
     fetchData();
   }, [page, destinationFilter, sveDestinacije, sviIDs]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const authToken = window.sessionStorage.getItem("auth_token");
 
     axios.get('http://127.0.0.1:8000/api/destinacija', {
@@ -32,12 +32,12 @@ function MojaPutovanja() {
       .catch(error => {
         console.error('Greška pri dohvaćanju destinacija:', error);
       });
-  }, []);
+  }, []);*/
 
   const fetchData = () => {
     const authToken = window.sessionStorage.getItem('auth_token');
   
-    axios.get(`http://127.0.0.1:8000/api/planPutovanja?page=${page}&destination=${destinationFilter}`, {
+    axios.get(`http://127.0.0.1:8000/api/planPutovanja`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -71,12 +71,43 @@ function MojaPutovanja() {
     setDestinationFilter(e.target.value);
   };
 
+  const handleFilterByDestination = () => {
+    const authToken = window.sessionStorage.getItem('auth_token'); // Declare authToken here
+  
+    
+    axios.get(`http://127.0.0.1:8000/api/planPutovanja/${destinationFilter}`, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    })
+      .then(response => {
+        console.log(response.data);
+  
+        if (Array.isArray(response.data.data)) {
+          const updatedPlanovi = response.data.data.map(plan => {
+            const destinationDetails = sveDestinacije?.data?.find(dest => dest.id === plan.destination_id);
+            return {
+              ...plan,
+              destination: destinationDetails ? destinationDetails.name : 'N/A',
+            };
+          });
+          setPlanovi(updatedPlanovi);
+        } else {
+          console.error('Odgovor servera ne sadrži niz planova putovanja ili data nije definisan.');
+        }
+      })
+      .catch(error => {
+        console.error('Greška pri dohvaćanju planova putovanja:', error);
+      });
+  };
+
   return (
-    <div>
+    <div className="moja-putovanja-container">
       <h2>Moja putovanja</h2>
 
       {/* Filter input */}
       <input type="text" placeholder="Filter by destination" value={destinationFilter} onChange={handleFilterChange} />
+      <button onClick={handleFilterByDestination}>Filtriraj</button>
 
       {planovi.map(plan => (
         <div key={plan.id}>
@@ -89,9 +120,9 @@ function MojaPutovanja() {
 
       {/* Pagination */}
       <div>
-        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1}>Previous Page</button>
+        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="pagination-button" >Previous Page</button>
         <span> Page {page} </span>
-        <button onClick={() => handlePageChange(page + 1)}>Next Page</button>
+        <button onClick={() => handlePageChange(page + 1)} className="pagination-button" >Next Page</button>
       </div>
     </div>
   );

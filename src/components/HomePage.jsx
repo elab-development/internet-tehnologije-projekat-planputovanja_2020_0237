@@ -113,7 +113,7 @@ function HomePage() {
   }
   return (
     <div className="home-page">
-      <h2>Planiranje Putovanja</h2>
+      <h2>Planiranje putovanja</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Destinacija:</label>

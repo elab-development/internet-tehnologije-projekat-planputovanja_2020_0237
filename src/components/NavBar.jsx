@@ -40,8 +40,8 @@ function NavBar({ token, setToken }) {
       {token && (
         <ul>
           <li><Link to="/homepage">Home</Link></li>
-          <li><Link to="/gallery">Gallery</Link></li>
-          <li><Link to="/about">About</Link></li>
+          <li><Link to="/gallery">Galerija</Link></li>
+          <li><Link to="/about">O nama</Link></li>
           <li><Link to="/mojaputovanja">Moja putovanja</Link></li>
           <li><button onClick={handleLogout}>Logout</button></li>
         </ul>
