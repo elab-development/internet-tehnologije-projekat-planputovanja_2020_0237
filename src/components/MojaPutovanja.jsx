@@ -4,101 +4,52 @@ import axios from 'axios';
 
 function MojaPutovanja() {
   const [planovi, setPlanovi] = useState([]);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [destinationFilter, setDestinationFilter] = useState('');
   const [sveDestinacije, setSveDestinacije] = useState(null);
-  const [sviIDs, setDestinationsIDs] = useState(null);
+  const plansPerPage = 3; // Broj planova po strani
 
   useEffect(() => {
     fetchData();
-  }, [page, destinationFilter, sveDestinacije, sviIDs]);
-
-  /*useEffect(() => {
-    const authToken = window.sessionStorage.getItem("auth_token");
-
-    axios.get('http://127.0.0.1:8000/api/destinacija', {
-      headers: {
-        'Authorization': `Bearer ${authToken}`
-      }
-    })
-      .then(response => {
-        console.log(response.data);
-        const allDestinations = response.data;
-
-        // Postavlja opcije za destinacije
-        setDestinationsIDs(allDestinations.data.map(option => option.destination_id));
-        setSveDestinacije(allDestinations);
-      })
-      .catch(error => {
-        console.error('Greška pri dohvaćanju destinacija:', error);
-      });
-  }, []);*/
+  }, [currentPage, destinationFilter, sveDestinacije]);
 
   const fetchData = () => {
     const authToken = window.sessionStorage.getItem('auth_token');
   
-    axios.get(`http://127.0.0.1:8000/api/planPutovanja`, {
+    axios.get('http://127.0.0.1:8000/api/planPutovanja', {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
     })
       .then(response => {
         console.log(response.data);
-  
-        if (Array.isArray(response.data.data)) {
-          const updatedPlanovi = response.data.data.map(plan => {
-            const destinationDetails = sveDestinacije?.data?.find(dest => dest.id === plan.destination_id);
-            return {
-              ...plan,
-              destination: destinationDetails ? destinationDetails.name : 'N/A',
-            };
-          });
-          setPlanovi(updatedPlanovi);
-        } else {
-          console.error('Odgovor servera ne sadrži niz planova putovanja ili data nije definisan.');
-        }
+        setPlanovi(response.data.data);
       })
       .catch(error => {
         console.error('Greška pri dohvaćanju planova putovanja:', error);
       });
   };
 
+  const filteredPlans = planovi.filter(plan => {
+    return plan.destination_name.toLowerCase().includes(destinationFilter.toLowerCase());
+  });
+
+  // Izračunajte ukupan broj strana
+  const totalPages = Math.ceil(filteredPlans.length / plansPerPage);
+
+  // Izračunajte koji planovi treba da budu prikazani na trenutnoj stranici
+  const indexOfLastPlan = currentPage * plansPerPage;
+  const indexOfFirstPlan = indexOfLastPlan - plansPerPage;
+  const currentPlans = filteredPlans.slice(indexOfFirstPlan, indexOfLastPlan);
+
   const handlePageChange = (newPage) => {
-    setPage(newPage);
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   const handleFilterChange = (e) => {
     setDestinationFilter(e.target.value);
-  };
-
-  const handleFilterByDestination = () => {
-    const authToken = window.sessionStorage.getItem('auth_token'); // Declare authToken here
-  
-    
-    axios.get(`http://127.0.0.1:8000/api/planPutovanja/${destinationFilter}`, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      .then(response => {
-        console.log(response.data);
-  
-        if (Array.isArray(response.data.data)) {
-          const updatedPlanovi = response.data.data.map(plan => {
-            const destinationDetails = sveDestinacije?.data?.find(dest => dest.id === plan.destination_id);
-            return {
-              ...plan,
-              destination: destinationDetails ? destinationDetails.name : 'N/A',
-            };
-          });
-          setPlanovi(updatedPlanovi);
-        } else {
-          console.error('Odgovor servera ne sadrži niz planova putovanja ili data nije definisan.');
-        }
-      })
-      .catch(error => {
-        console.error('Greška pri dohvaćanju planova putovanja:', error);
-      });
   };
 
   return (
@@ -107,11 +58,10 @@ function MojaPutovanja() {
 
       {/* Filter input */}
       <input type="text" placeholder="Filter by destination" value={destinationFilter} onChange={handleFilterChange} />
-      <button onClick={handleFilterByDestination}>Filtriraj</button>
 
-      {planovi.map(plan => (
+      {currentPlans.map(plan => (
         <div key={plan.id}>
-          <p>Destinacija: {plan.destination}</p>
+          <p>Destinacija: {plan.destination_name}</p>
           <p>Datum polaska: {plan.date ? new Date(plan.date).toDateString() : 'N/A'}</p>
           <p>Trajanje putovanja: {plan.duration} dana</p>
           <p>Budžet: {plan.budget}</p>
@@ -120,9 +70,9 @@ function MojaPutovanja() {
 
       {/* Pagination */}
       <div>
-        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="pagination-button" >Previous Page</button>
-        <span> Page {page} </span>
-        <button onClick={() => handlePageChange(page + 1)} className="pagination-button" >Next Page</button>
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="pagination-button" >Previous Page</button>
+        <span> Page {currentPage} of {totalPages} </span>
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="pagination-button" >Next Page</button>
       </div>
     </div>
   );
