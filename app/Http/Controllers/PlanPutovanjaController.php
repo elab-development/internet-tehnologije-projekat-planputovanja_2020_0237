@@ -48,12 +48,15 @@ class PlanPutovanjaController extends Controller
     
         $user = Auth::user(); // Dohvati trenutno ulogovanog korisnika
 
+        // Konvertujemo datum u odgovarajući format
+    $convertedDate = date('Y-m-d H:i:s', strtotime($request->date));
+
         $planPutovanja = PlanPutovanja::create([
             'user_id' => $user->id,
             'destination_id' => $request->destination_id,
             'duration' => $request->duration,
             'budget' => $request->budget,
-            'date' => $request->date
+            'date' =>  $convertedDate
         ]);
 
         return response()->json(['PlanPutovanja je uspesno sacuvan.', new PlanPutovanjaResource($planPutovanja)]);
@@ -137,5 +140,6 @@ class PlanPutovanjaController extends Controller
         $planPutovanja->delete();
         return response()->json(['Plan putovanja je uspesno obrisan.', 204]);
     }
+    
 
 }

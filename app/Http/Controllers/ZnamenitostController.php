@@ -14,12 +14,11 @@ class ZnamenitostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-        $znamenitosts= Znamenitost::all();
-        return ZnamenitostResource::collection($znamenitosts);
-    }
+    public function index($destination_id)
+{
+    $znamenitosti = Znamenitost::where('destination_id', $destination_id)->get();
+    return ZnamenitostResource::collection($znamenitosti);
+}
 
     /**
      * Show the form for creating a new resource.

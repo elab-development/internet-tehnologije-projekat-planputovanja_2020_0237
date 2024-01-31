@@ -31,8 +31,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/hotel', [HotelController::class, 'index']);
 
-
+Route::get('/znamenitost/{destination_id}', [ZnamenitostController::class, 'index']);
 //samo za ulogovane
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
@@ -55,9 +56,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
    //Prikaz korisniku svih destinacija
    Route::get('/destinacija', [DestinacijaController::class, 'index'])->middleware('accessControl:2');
-
+   Route::get('/destinacija/{id}', [DestinacijaController::class, 'show'])->middleware('accessControl:2');
+  
+   
    //Eksport podataka u pdf-u
-   Route::get('/export-pdf', [PDFExportController::class, 'exportPDF'])->middleware('accessControl:1');
+   Route::get('/export-pdf', [PDFExportController::class, 'exportPDF'])->middleware('accessControl:2');
 
    //Ulogovan korisnik moze da vidi, kreira, izmenjuje i brise svoja putovanja
    Route::get('/planPutovanja', [PlanPutovanjaController::class, 'index'])->middleware('accessControl:2');
