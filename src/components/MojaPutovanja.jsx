@@ -68,7 +68,7 @@ function MojaPutovanja() {
         </div>
       ))}
 
-      {/* Pagination */}
+      {/* Paginacija */}
       <div>
         <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="pagination-button" >Previous Page</button>
         <span> Page {currentPage} of {totalPages} </span>

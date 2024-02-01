@@ -1,25 +1,17 @@
-import { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import "../css/WeatherApi.css"; 
-
-const api = {
-  key: "82d01bf93bb39c6672a6f1198e7fa81b",
-  base: "https://api.openweathermap.org/data/2.5/",
-};
+import "../css/WeatherApi.css";
+import useWeatherSearch from "./useWeatherSearch"; 
 
 function WeatherApi() {
-  const [search, setSearch] = useState("");
-  const [weather, setWeather] = useState({});
+  const { search, setSearch, weather, setWeather, searchWeather } = useWeatherSearch();
 
-  const searchPressed = () => {
-    fetch(`${api.base}weather?q=${search}&units=metric&APPID=${api.key}`)
-      .then((res) => res.json())
-      .then((result) => {
-        setWeather(result);
-      })
-      .catch((error) => {
-        console.error("Greška pri preuzimanju podataka:", error);
-      });
+  const searchPressed = async () => {
+    try {
+      await searchWeather();
+    } catch (error) {
+      console.error("Greška pri pretrazi vremena:", error);
+    }
   };
 
   return (
@@ -46,18 +38,16 @@ function WeatherApi() {
           </Link>
         </div>
 
-        {/* Weather component moved to a separate component */}
         <WeatherDisplay weather={weather} />
       </header>
     </div>
   );
 }
 
-// Separate component to display weather
 const WeatherDisplay = ({ weather }) => {
   return (
     <>
-      {typeof weather.main !== "undefined" ? (
+      {weather && typeof weather.main !== "undefined" ? (
         <div className="Weather-display">
           <p>{weather.name}</p>
           <p>{weather.main.temp}°C</p>

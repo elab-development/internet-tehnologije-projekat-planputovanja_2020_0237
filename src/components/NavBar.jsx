@@ -9,7 +9,7 @@ function NavBar({ token, setToken }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Prilikom montiranja komponente, postavi token iz sessionStorage
+
     const authToken = window.sessionStorage.getItem('auth_token');
     setToken(authToken);
   }, [setToken]);
@@ -34,7 +34,6 @@ function NavBar({ token, setToken }) {
     }
   };
 
-  // Uslovno prikazivanje na osnovu tokena
   return (
     <nav>
       {token && (

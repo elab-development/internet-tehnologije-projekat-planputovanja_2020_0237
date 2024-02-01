@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import '../css/Register.css';
 import axios from "axios"
 
-function Register() { // Dodajemo onRegister kao prop
+function Register() { 
     const[userData,setUserData]=useState({
         name:"",
         email:"",
