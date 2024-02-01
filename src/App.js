@@ -9,6 +9,7 @@ import Gallery from './components/Gallery';
 import About from './components/About';
 import PlanPutovanja from './components/PlanPutovanja';
 import MojaPutovanja from './components/MojaPutovanja';
+import WeatherApi from './components/WeatherApi';
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
+          <Route path="/weather" element={<WeatherApi />} />
           <Route path="/planputovanja" element={<PlanPutovanja />} />
           <Route path="/mojaputovanja" element={<MojaPutovanja />} />
         </Routes>

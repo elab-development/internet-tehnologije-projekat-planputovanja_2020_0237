@@ -41,6 +41,7 @@ function NavBar({ token, setToken }) {
         <ul>
           <li><Link to="/homepage">Home</Link></li>
           <li><Link to="/gallery">Galerija</Link></li>
+          <li><Link to="/weather">Vreme</Link></li>
           <li><Link to="/about">O nama</Link></li>
           <li><Link to="/mojaputovanja">Moja putovanja</Link></li>
           <li><button onClick={handleLogout}>Logout</button></li>

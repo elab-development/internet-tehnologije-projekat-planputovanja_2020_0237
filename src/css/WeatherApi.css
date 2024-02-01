@@ -1,0 +1,57 @@
+/* WeatherApi.css */
+.Weather {
+    background-image: url('https://happay.com/blog/wp-content/uploads/sites/12/2022/09/Business-Travel-Management-_1_-scaled-1.webp');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .Weather-header {
+    text-align: center;
+  }
+  
+  .Weather-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .Weather-input {
+    font-size: 18px;
+    padding: 8px;
+    margin-right: 5px;
+    width: 250px;
+    height: 40px;
+  }
+  
+  .Weather-button {
+    font-size: 18px;
+    padding: 8px;
+    width: 100px;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .weather-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* WeatherDisplay.css */
+  .Weather-display {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 20px;
+  }
+  
