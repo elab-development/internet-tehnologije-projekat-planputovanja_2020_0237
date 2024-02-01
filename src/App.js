@@ -10,6 +10,7 @@ import About from './components/About';
 import PlanPutovanja from './components/PlanPutovanja';
 import MojaPutovanja from './components/MojaPutovanja';
 import WeatherApi from './components/WeatherApi';
+import Footer from './components/Footer';
 
 function App() {
   
@@ -35,8 +36,10 @@ function App() {
           <Route path="/planputovanja" element={<PlanPutovanja />} />
           <Route path="/mojaputovanja" element={<MojaPutovanja />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
+    
   );
 }
 
