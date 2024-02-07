@@ -11,25 +11,36 @@ import PlanPutovanja from './components/PlanPutovanja';
 import MojaPutovanja from './components/MojaPutovanja';
 import WeatherApi from './components/WeatherApi';
 import Footer from './components/Footer';
+import AdminPage from './admin/AdminPage';
+import AdminDestinacija from './admin/AdminDestinacija';
+import AdminHotel from './admin/AdminHotel';
+import HotelCountVisualization from './admin/HotelCountVisualization';
 
 function App() {
   
   const [token, setToken] = useState();
+  const [userRole, setUserRole] = useState();
 
-  function addToken(auth_token) {
+  function addToken(auth_token, role) {
     setToken(auth_token);
+    setUserRole(role);
   }
-  
-
-
   return (
     <Router>
       <div className="App">
-      <NavBar token={token} setToken={setToken} />
+        <NavBar token={token} setToken={setToken} userRole={userRole} />
         <Routes>
           <Route path="/login" element={<Login addToken={addToken} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/homepage" element={<HomePage />} />
+          {userRole === 1 && (
+            <>
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/admin/destinacija" element={<AdminDestinacija />} />
+              <Route path="/admin/hotel" element={<AdminHotel />} />
+              <Route path="/admin/vizuelizacija" element={<HotelCountVisualization />}/>
+            </>
+          )}
+          {userRole === 2 && <Route path="/homepage" element={<HomePage />} />}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
           <Route path="/weather" element={<WeatherApi />} />
@@ -39,7 +50,6 @@ function App() {
         <Footer />
       </div>
     </Router>
-    
   );
 }
 

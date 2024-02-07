@@ -1,3 +1,4 @@
+import { useMemo, useState, useEffect } from "react";
 import React from 'react';
 import '../css/About.css';
  
@@ -19,6 +20,7 @@ function About() {
                 <p>Posetite nas na adresi:</p>
                 <p>Ulica dobrih putovanja, 10, Beograd</p>
             </div>
+            
         </div>
     );
 }

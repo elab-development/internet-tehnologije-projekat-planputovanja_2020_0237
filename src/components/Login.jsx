@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Promenjena importacija
 import '../css/Login.css';
 import axios from "axios"
 
-
-function Login({addToken}) { 
-  const[userData,setUserData]=useState({
-    email:"",
-    password:"",
+function Login({ addToken }) {
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Dodajemo korisničku kuku
-  let navigate=useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let navigate = useNavigate(); // Promenjeno ime kuke
 
   function handleInput(e) {
     let newUserData=userData;
@@ -18,19 +17,26 @@ function Login({addToken}) {
     setUserData(newUserData);
   }
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
-    axios.post("http://127.0.0.1:8000/api/login",userData).then((res)=>{
-      console.log(res.data);
-      if(res.data.success===true){
-        window.sessionStorage.setItem("auth_token",res.data.access_token);
-        addToken(res.data.access_token);
-        setIsLoggedIn(true); // Postavljamo isLoggedIn na true kada se korisnik uspešno prijavi
-        navigate("/homepage");
-      }
-    }).catch((e)=>{
-      console.log(e);
-    });
+    axios.post("http://127.0.0.1:8000/api/login", userData)
+      .then((res) => {
+        if (res.data.success === true && res.data.user) {
+          window.sessionStorage.setItem("auth_token", res.data.access_token);
+          console.log("Token:", res.data.access_token); // Dodajemo console.log za proveru tokena
+          addToken(res.data.access_token, res.data.user.role_id);
+          setIsLoggedIn(true);
+  
+          if (res.data.user.role_id === 1) {
+            navigate("/admin");
+          } else if (res.data.user.role_id === 2) {
+            navigate("/homepage");
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (

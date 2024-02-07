@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import '../css/Gallery.css';
 
 
-function Gallery({ onLogout, email }) {
+function Gallery() {
   return (
     <div>
       <h2>Galerija</h2>
@@ -53,7 +53,7 @@ function Gallery({ onLogout, email }) {
           <img src="https://bookaweb.s3.eu-central-1.amazonaws.com/media/73793/beograd-destinacija-feature.jpg" alt="Beograd" />
           <figcaption>Beograd</figcaption>
         </figure>
-        {/* Dodajte ostale slike sa njihovim nazivima */}
+        
       </div>
     </div>
   );

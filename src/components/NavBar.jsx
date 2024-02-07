@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import '../css/NavBar.css';
 import axios from "axios";
 
-function NavBar({ token, setToken }) {
+function NavBar({ token, setToken, userRole }) {
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-
     const authToken = window.sessionStorage.getItem('auth_token');
+    console.log('Vrednost tokena iz sessionStorage:', authToken);
     setToken(authToken);
   }, [setToken]);
 
@@ -38,12 +38,24 @@ function NavBar({ token, setToken }) {
     <nav>
       {token && (
         <ul>
-          <li><Link to="/homepage">Home</Link></li>
-          <li><Link to="/gallery">Galerija</Link></li>
-          <li><Link to="/weather">Vreme</Link></li>
-          <li><Link to="/about">O nama</Link></li>
-          <li><Link to="/mojaputovanja">Moja putovanja</Link></li>
-          <li><button onClick={handleLogout}>Logout</button></li>
+           {userRole === 1 && (
+            <>
+              <li><Link to="/admin/destinacija">Dodaj destinaciju</Link></li>
+              <li><Link to="/admin/hotel">Obriši hotel</Link></li>
+              <li><Link to="/admin/vizuelizacija">Vizuelizacija</Link></li>
+              <li><button onClick={handleLogout}>Logout</button></li>
+            </>
+          )}
+          {userRole === 2 && (
+            <>
+              <li><Link to="/homepage">Home</Link></li>
+              <li><Link to="/gallery">Galerija</Link></li>
+              <li><Link to="/weather">Vreme</Link></li>
+              <li><Link to="/about">O nama</Link></li>
+              <li><Link to="/mojaputovanja">Moja putovanja</Link></li>
+              <li><button onClick={handleLogout}>Logout</button></li>
+            </>
+          )}
         </ul>
       )}
     </nav>

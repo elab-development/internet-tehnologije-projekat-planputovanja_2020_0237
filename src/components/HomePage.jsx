@@ -87,14 +87,14 @@ function HomePage() {
         if (affordableHotels.length > 0) {
           const hotelNames = affordableHotels.map(hotel => hotel.name);
           alert(`Hoteli sa odgovarajućom cenom: ${hotelNames.join(', ')}`);
-          setSelectedHotel(affordableHotels[0]);  // Odaberite prvi hotel (možete prilagoditi način odabira hotela)
+          setSelectedHotel(affordableHotels[0]);  // Bira prvi hotel 
           
         } else {
           alert('Nemate dovoljno veliki budžet za ovo putovanje.');
         }
       })
       .catch(error => {
-        console.error('Greška pri dohvaćanju hotela:', error);
+        console.error('Greška pri ucitavanju hotela:', error);
       });
   };
    // Prikazivanje komponente PlanPutovanja ako je hotel odabran
