@@ -6,7 +6,7 @@ use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\HotelResource;
-
+use Illuminate\Support\Facades\DB;
 
 class HotelController extends Controller
 {
@@ -149,4 +149,15 @@ class HotelController extends Controller
         $hotel->delete();
         return response()->json(['Hotel je uspesno obrisan.', 204]);
     }
+
+    public function countByDestination()
+{
+    $hotelCounts = DB::table('hotels')
+                    ->select('destinacijas.name as destination', DB::raw('count(*) as hotel_count'))
+                    ->join('destinacijas', 'hotels.destination_id', '=', 'destinacijas.id')
+                    ->groupBy('hotels.destination_id', 'destinacijas.name')
+                    ->get();
+
+    return response()->json($hotelCounts);
+}
 }

@@ -10,6 +10,9 @@
 <body>
     <h1>Planovi putovanja</h1>
 
+      <!-- Dodajte sledeći red za CSRF token -->
+      <form action="{{ route('ruta_za_vase_postanje_podataka') }}" method="post">
+        @csrf
     <table border="1">
         <thead>
             <tr>

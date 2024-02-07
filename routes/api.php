@@ -11,7 +11,15 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\PDFExportController;
 use App\Http\Controllers\PlanPutovanjaController;
 use App\Http\Controllers\ZnamenitostController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
+
+use Illuminate\Auth\Events\PasswordReset;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,6 +39,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/forgotpassword', [AuthController::class, 'forgotpassword']);
+Route::post('/resetpassword', [AuthController::class, 'resetpassword']);
 Route::get('/hotel', [HotelController::class, 'index']);
 
 Route::get('/znamenitost/{destination_id}', [ZnamenitostController::class, 'index']);
@@ -43,7 +54,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    
    Route::get('/users', [UserController::class, 'index'])->middleware('accessControl:1');
    Route::get('/users/{id}', [UserController::class, 'show'])->middleware('accessControl:1');
-   Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware('accessControl:1');
+   Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
    //admin moze da dodaje i brise destinacije
    Route::resource('/destinacija', DestinacijaController::class)->only(['store','destroy'])->middleware('accessControl:1');
@@ -53,7 +64,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
    //admin moze da dodaje i brise hotele
    Route::resource('/hotel', HotelController::class)->only(['store','destroy'])->middleware('accessControl:1');
-
+   Route::get('/hotel/count-by-destination', [HotelController::class,'countByDestination'])->middleware('accessControl:1');;
    //Prikaz korisniku svih destinacija
    Route::get('/destinacija', [DestinacijaController::class, 'index'])->middleware('accessControl:2');
    Route::get('/destinacija/{id}', [DestinacijaController::class, 'show'])->middleware('accessControl:2');

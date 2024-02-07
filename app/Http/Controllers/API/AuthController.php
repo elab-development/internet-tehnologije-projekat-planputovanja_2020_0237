@@ -7,10 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Password;
+use App\Mail\ResetPasswordMail;
+
 
 class AuthController extends Controller
 {
@@ -67,7 +70,7 @@ class AuthController extends Controller
         $token= $user->createToken('auth_token')->plainTextToken;
 
         return response()
-            ->json(['success'=>true, 'message' => 'Hi ' .$user->name.', welcome to home','access_token'=> $token, 'token_type' => 'Bearer', ]);
+            ->json(['success'=>true, 'message' => 'Hi ' .$user->name.', welcome to home','user' => $user,'access_token'=> $token, 'token_type' => 'Bearer', ]);
     }
 
     public function logout(Request $request){
@@ -102,4 +105,46 @@ class AuthController extends Controller
         
         return response()->json($user);
     }
+    
+    public function forgottpassword(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (is_null($user)) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    
+        $token = Password::createToken($user);
+    
+        Mail::to($user->email)->send(new \App\Mail\ResetPasswordMail($token));
+    
+        return response()->json(['message' => 'Email with password reset link sent']);
+    }
+    
+    public function resetpassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string|min:9',
+            'password_confirmation' => 'required|string|same:password',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (is_null($user)) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    
+        $user->password = Hash::make($request->password);
+        $user->save();
+    
+        return response()->json(['message' => 'Password changed successfully: ' . $user->email]);
+    }
 }
+    
