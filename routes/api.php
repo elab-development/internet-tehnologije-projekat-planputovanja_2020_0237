@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\API\AuthController;
+
+use App\Http\Controllers\CacheController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DestinacijaController;
 use App\Http\Controllers\HotelController;
@@ -13,7 +15,7 @@ use App\Http\Controllers\PlanPutovanjaController;
 use App\Http\Controllers\ZnamenitostController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
-
+use App\Http\Controllers\FileUploadController;
 
 use Illuminate\Auth\Events\PasswordReset;
 
@@ -86,3 +88,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 //zaboravljena lozinka
 Route::post('forgot/password',[AuthController::class,'forgotPassword']);
+// data caching
+Route::get('/cache', [CacheController::class, 'index']);
+Route::post('/upload', [FileUploadController::class, 'upload']);
+
+Route::get('/file', [FileUploadController::class, 'getFiles']);

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Password;
 use App\Mail\ResetPasswordMail;
+use App\Mail\ForgotPasswordNotification;
 
 
 class AuthController extends Controller
@@ -86,25 +87,29 @@ class AuthController extends Controller
     }
 
     public function forgotPassword(Request $request)
-    {   
-        $request->validate([
-          'email' => 'required',
-          'password' => 'required|string|min:8'
-        ]);
-        $user = User::where('email', $request->email)->first();
-        if (!$user) {
-    
-            return response()->json(['error' => 'Korisnik nije pronadjen!'], 404);
+{   
+    $request->validate([
+        'email' => 'required',
+        'password' => 'required|string|min:8'
+    ]);
 
-        }
-
-        if ($request->email === $user->email) {
-            $user->password = Hash::make($request->password);
-            $user->save();
-        }
-        
-        return response()->json($user);
+    $user = User::where('email', $request->email)->first();
+    if (!$user) {
+        return response()->json(['error' => 'Korisnik nije pronadjen!'], 404);
     }
+
+    // Ažuriranje lozinke
+    if ($request->email === $user->email) {
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        // Slanje e-pošte obaveštenja
+        $user->notify(new ForgotPasswordNotification($user));
+    }
+    
+    return response()->json($user);
+}
+
     
     public function forgottpassword(Request $request)
     {
