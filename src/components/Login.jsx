@@ -30,7 +30,7 @@ function Login({ addToken }) {
           if (res.data.user.role_id === 1) {
             navigate("/admin");
           } else if (res.data.user.role_id === 2) {
-            navigate("/homepage");
+            navigate("/visitor");
           }
         }
       })

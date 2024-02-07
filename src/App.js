@@ -15,6 +15,7 @@ import AdminPage from './admin/AdminPage';
 import AdminDestinacija from './admin/AdminDestinacija';
 import AdminHotel from './admin/AdminHotel';
 import HotelCountVisualization from './admin/HotelCountVisualization';
+import VisitorPage from './components/VisitorPage';
 
 function App() {
   
@@ -40,12 +41,18 @@ function App() {
               <Route path="/admin/vizuelizacija" element={<HotelCountVisualization />}/>
             </>
           )}
-          {userRole === 2 && <Route path="/homepage" element={<HomePage />} />}
+          {userRole === 2 && (
+          <>
+          <Route path="/homepage" element={<HomePage />}/>
+          <Route path="/visitor" element={<VisitorPage />}/>
+          
+          <Route path="/planputovanja" element={<PlanPutovanja />} />
+          <Route path="/mojaputovanja" element={<MojaPutovanja />} />
+           </>
+           )}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/about" element={<About />} />
           <Route path="/weather" element={<WeatherApi />} />
-          <Route path="/planputovanja" element={<PlanPutovanja />} />
-          <Route path="/mojaputovanja" element={<MojaPutovanja />} />
         </Routes>
         <Footer />
       </div>

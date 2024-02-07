@@ -8,8 +8,8 @@ const HotelCountVisualization = () => {
 
     useEffect(() => {
         const token = sessionStorage.getItem('auth_token');
-        setAuthToken(token); // Getting the token from sessionStorage
-        fetchData(token); // Pass the token to fetchData
+        setAuthToken(token);
+        fetchData(token); 
     }, []);
 
     const fetchData = async (token) => { 
@@ -19,7 +19,7 @@ const HotelCountVisualization = () => {
                     Authorization: `Bearer ${token}`, 
                 },
             });
-            console.log(response.data); // Log the entire response object
+            console.log(response.data); 
     
             // Extract data from the response
             const chartData = response.data.map(item => [item.destination, item.hotel_count]);

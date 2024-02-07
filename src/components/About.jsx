@@ -1,8 +1,12 @@
 import { useMemo, useState, useEffect } from "react";
 import React from 'react';
+import FileUpload from './FileUpload';
 import '../css/About.css';
  
 function About() {
+    const handleUpload = (file) => {
+        console.log('File uploaded:', file.name);
+    };
     return (
         <div className="about-container">
             <div className="about-content">
@@ -20,7 +24,10 @@ function About() {
                 <p>Posetite nas na adresi:</p>
                 <p>Ulica dobrih putovanja, 10, Beograd</p>
             </div>
-            
+            <div className="file-upload-container">
+                <h3>Podelite sa nama Vaše utiske sa putovanja!</h3>
+                <FileUpload onUpload={handleUpload} />
+            </div>
         </div>
     );
 }

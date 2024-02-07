@@ -60,9 +60,9 @@ function PlanPutovanja({ destination_id, destination, budget, startDate, duratio
   const dailySchedule = generateDailySchedule();
 
   const handleCancel = () => {
-    navigate.goBack();
-    console.log('Poništi');
-  };
+    navigate("/visitor");
+  console.log('Poništi');
+};
 
   const handleSave = () => {
     const authToken = window.sessionStorage.getItem('auth_token');
@@ -129,7 +129,7 @@ function PlanPutovanja({ destination_id, destination, budget, startDate, duratio
       ))}
 
       <div className="buttons">
-        <Link to="/homepage" className="button button-cancel" onClick={handleCancel}>
+        <Link to="/visitor" className="button button-cancel" onClick={handleCancel}>
           Poništi
         </Link>
         <button onClick={handleSave} className="button button-save" disabled={isSaved}>
