@@ -42,7 +42,7 @@ function NavBar({ token, setToken, userRole }) {
             <>
               <li><Link to="/admin/destinacija">Dodaj destinaciju</Link></li>
               <li><Link to="/admin/hotel">Obriši hotel</Link></li>
-              <li><Link to="/admin/vizuelizacija">Vizuelizacija</Link></li>
+              <li><Link to="/admin/vizuelizacija">Statistika</Link></li>
               <li><button onClick={handleLogout}>Logout</button></li>
             </>
           )}
