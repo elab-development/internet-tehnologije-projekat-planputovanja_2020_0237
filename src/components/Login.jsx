@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Promenjena importacija
+import { Link, useNavigate } from 'react-router-dom'; 
 import '../css/Login.css';
 import axios from "axios"
 
@@ -9,7 +9,7 @@ function Login({ addToken }) {
     password: "",
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  let navigate = useNavigate(); // Promenjeno ime kuke
+  let navigate = useNavigate(); 
 
   function handleInput(e) {
     let newUserData=userData;

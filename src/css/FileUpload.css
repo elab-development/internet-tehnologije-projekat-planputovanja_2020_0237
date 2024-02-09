@@ -7,7 +7,7 @@
   }
   
   .dropzone input[type="file"] {
-    display: none; /* Sakrijemo input polje */
+    display: none; 
   }
   
   .dropzone:hover {

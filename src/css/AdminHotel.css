@@ -27,16 +27,16 @@
 
 .admin-hotel-content ul {
     display: flex;
-    flex-wrap: wrap; /* Omogućava elementima da prelaze u sledeći red */
-    justify-content: space-between; /* Rasporedi elemente ravnomerno u redu */
+    flex-wrap: wrap; 
+    justify-content: space-between;
     padding: 0;
-    margin: 0 -15px; /* Nadomesti unutrašnje margine elemenata */
+    margin: 0 -15px; 
 }
 
 .admin-hotel-content li {
-    width: calc(25% - 30px); /* Postavite širinu elementa tako da bude 25% sa 30px margine između */
-    margin: 15px; /* Postavite spoljne margine za razmak između elemenata */
-    box-sizing: border-box; /* Uključi padding i border u izračunatu širinu */
+    width: calc(25% - 30px); 
+    margin: 15px; 
+    box-sizing: border-box; 
 }
 
 .admin-hotel-form {

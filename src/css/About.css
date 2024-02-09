@@ -4,7 +4,7 @@
   background-position: center;
   min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Dodajemo da bi sadržaj bio postavljen vertikalno */
+  flex-direction: column; 
   justify-content: center; 
   align-items: center; 
   padding: 20px;
@@ -17,7 +17,7 @@
   color: #1b1919;
   font-size: 18px;
   padding: 20px;
-  margin-bottom: 20px; /* Dodajemo margine za razmak između sadržaja i FileUploadContainer-a */
+  margin-bottom: 20px;
 }
 
 .about-content h2,
@@ -42,5 +42,5 @@
 }
 
 .file-upload-container {
-  text-align: center; /* Centriramo sadržaj FileUploadContainer-a */
+  text-align: center; 
 }
