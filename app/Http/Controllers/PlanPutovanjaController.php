@@ -123,7 +123,7 @@ class PlanPutovanjaController extends Controller
         if (!$planPutovanja) {
             return response()->json('Plan putovanja nije pronadjen.', 404);
         }
-        // Provera vlasništva
+        
         if ($planPutovanja->user_id !== Auth::id()) {
             return response()->json('Nemate dozvolu za ažuriranje ovog plana putovanja.', 403);
         }
@@ -150,7 +150,7 @@ class PlanPutovanjaController extends Controller
         if (!$planPutovanja) {
             return response()->json('Plan putovanja nije pronadjen.', 404);
         }
-        // Provjera vlasništva
+        
     
         if ($planPutovanja->user_id !== Auth::id()) {
             return response()->json('Nemate dozvolu za brisanje ovog plana putovanja.', 403);

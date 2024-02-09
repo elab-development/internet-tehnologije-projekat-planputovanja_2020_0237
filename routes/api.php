@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    Route::get('/planPutovanja/{name}', [PlanPutovanjaController::class, 'getByDestination'])->middleware('accessControl:2');
   // Route::get('/planPutovanja/page/{page}/perPage/{perPage}', [PlanPutovanjaController::class, 'getPlansByPage'])->middleware('accessControl:2');
 
+   Route::get('/file', [FileUploadController::class, 'getFiles'])->middleware('accessControl:1');;
    Route::post('/logout', [AuthController::class, 'logout']);
 
 });
@@ -91,5 +92,3 @@ Route::post('forgot/password',[AuthController::class,'forgotPassword']);
 // data caching
 Route::get('/cache', [CacheController::class, 'index']);
 Route::post('/upload', [FileUploadController::class, 'upload']);
-
-Route::get('/file', [FileUploadController::class, 'getFiles']);
