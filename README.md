@@ -1,1 +1,35 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/1IMeAlJr)
+Internet Tehnologije Projekat - Aplikacija za Planiranje Putovanja
+	Ova veb aplikacija je razvijena kao deo projekta iz predmeta Internet tehnologije. Cilj projekta je kreiranje sistema za planiranje putovanja, omogućavajući korisnicima da pregledaju destinacije, unose budžet i datume putovanja, te dobijaju preporuke u skladu sa svojim preferencijama.
+Korišćene tehnologije
+	Laravel: Za backend razvoj aplikacije.
+	React: Za frontend razvoj aplikacije.
+	phpMyAdmin: Za upravljanje bazom podataka.
+
+Uputstvo za pokretanje projekta na lokalnoj mašini
+Kloniranje repozitorijuma
+https://github.com/elab-development/internet-tehnologije-projekat-planputovanja_2020_0237.git
+Pokretanje - Backend
+1.	Pokrenite XAMPP i omogućite Apache i MySQL.
+2.	Instalacija PHP i Composer-a
+3.	Ukoliko nemate prethodno importovanu bazu, izvršite sledeće komande:
+	php artisan migrate
+	php artisan db:seed
+4.	Zatim pokrenite server unosom komande:
+	php artisan serve
+Pokretanje - Frontend
+1.	Instalacija Node.js
+2.	Unesite komandu za instalaciju npm-a:
+	npm install
+3.	Zatim pokrenite putem:
+	npm start
+4.	React aplikacija će biti dostupna na adresi http://localhost:3000/ u vašem web pregledaču.
+
+
+
+
+Funkcionalnosti
+Za neulogovane korisnike: Registracija, prijavljivanje.
+Za ulogovane korisnike:  Kreiranje plana putovanja na osnovu unetih podataka, pregled galerije i kontakt stranice uz mogućnost upload-ovanja fajlova, zatim pregled prognoze i vesti relevantnih za izabranu destinaciju, pregled svih sačuvanih putovanja i mogućnost štampanja istih, navigacija kroz navigacioni meni, odjava.
+Za admina: Ažuriranje destinacija dodavanjem nove, brisanje hotela, pregled statistike hotela po destinacijama, odjava.
+
+
