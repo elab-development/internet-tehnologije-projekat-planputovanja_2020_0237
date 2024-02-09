@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Destinacija;
 
 class ZnamenitostFactory extends Factory
 {
@@ -15,6 +16,11 @@ class ZnamenitostFactory extends Factory
     {
         return [
             //
+        'name' => $this->faker->name,
+        'description' => $this->faker->paragraph,
+        'location' => $this->faker->address, // Korišćenje address metode za unos konkretnih adresa
+        'price' => $this->faker->randomFloat(2, 0, 25),
+        'destination_id' => Destinacija::inRandomOrder()->first()->id,
         ];
     }
 }

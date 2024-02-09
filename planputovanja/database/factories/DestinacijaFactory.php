@@ -15,6 +15,8 @@ class DestinacijaFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->city,
+            'country' => $this->faker->country
         ];
     }
 }

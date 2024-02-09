@@ -20,7 +20,6 @@ class CreatePlanPutovanjasTable extends Migration
             $table->unsignedInteger('duration');
             $table->decimal('budget', 10, 2)->nullable();
             $table->date('date');
-            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

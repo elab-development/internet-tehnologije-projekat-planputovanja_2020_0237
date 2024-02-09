@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PlanPutovanja extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'destination_id', 'duration', 'budget', 'date', 'description'];
+    protected $fillable = ['user_id', 'destination_id', 'duration', 'budget', 'date'];
 
      // Relacija sa znamenitostima
     public function znamenitosti()
@@ -31,6 +31,6 @@ class PlanPutovanja extends Model
     // Relacija sa destinacijom (jedan plan putovanja pripada jednoj destinaciji)
     public function destinacija()
     {
-        return $this->belongsTo(Destinacija::class);
+        return $this->belongsTo(Destinacija::class,'destination_id');
     }
 }
